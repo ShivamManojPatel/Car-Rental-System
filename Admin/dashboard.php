@@ -1,0 +1,291 @@
+<?php
+  session_start();
+
+   if(session_id() == "" || !isset($_SESSION['User']))
+   {
+        header('location: ../index.php');
+   }
+
+   require '../datacon.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard-Admin</title>
+        <!-- Favicon-->
+        <link rel="shortout icon" type="image/x-icon" href="../img/favicon.png"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet"/>
+        <link href="../css/style.css" rel="stylesheet"/>
+      <link rel="stylesheet" href="css/line-icons.css">
+      <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css'>
+
+        <meta charset="utf-8">
+
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <!-- <a class="navbar-brand" href="../index.html">Car<span>Book</span></a> -->
+                <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="dashboard.php" style='color: black;'><h2><b>CAR</b><b style="color: #01d28e;">BOOK</h2></b></a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="dashboard.php" style='color: black;'>Dashboard</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addCars.php">Add car</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="availableCars.php">Available cars</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="reservedCars.php">Reserved cars</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="rentCars.php">Cars on rent</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="groundVehical.php">Grounded vehical</a>
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <div class="container-fluid">
+                        <!-- <button class="btn btn-outline-primary" id="sidebarToggle"><span class="lni-bulb"></span></button> -->
+                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                                <li class="nav-item active"><a class="nav-link" href="../index.php">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="../logout.php">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Page content-->
+                
+                    <div class="container-fluid" style='padding-left: 5%; padding-right: 5%;'>
+                        <center><h1 class="mt-4">Dashboard</h1></center><hr>
+                        <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <center><h3 class='mt-4'>Status</h3></center>
+                                </div>
+                                <table style='width: 100%;'>
+                                    <tr>
+                                        <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Total cars</h4>
+                                                    <?php 
+                                                        $tquery = "select count(*) from cars";
+                                                        $tresult = mysqli_query($conn, $tquery);
+                                                        $trow = mysqli_fetch_array($tresult);
+                                                    ?>
+                                                    <h3 class="card-text"><?php echo $trow[0]; ?></h3>                                        
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Cars on rent</h4>
+                                                    <?php 
+                                                        $rquery = "select count(*) from cars where CAR_STATUS='onRent'";
+                                                        $rresult = mysqli_query($conn, $rquery);
+                                                        $rrow = mysqli_fetch_array($rresult);
+                                                    ?>
+                                                    <h3 class="card-text"><?php echo $rrow[0]; ?></h3>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Cars available</h4>
+                                                    <?php 
+                                                        $aquery = "select count(*) from cars where CAR_STATUS='Available'";
+                                                        $aresult = mysqli_query($conn, $aquery);
+                                                        $arow = mysqli_fetch_array($aresult);
+                                                    ?>
+                                                    <h3 class="card-text"><?php echo $arow[0]; ?></h3>
+                                                </div>
+                                           </div>
+                                        </td>
+                                        <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Cars reserved</h4>
+                                                    <?php 
+                                                        $raquery = "select count(*) from cars where CAR_STATUS='Reserved'";
+                                                        $raresult = mysqli_query($conn, $raquery);
+                                                        $rarow = mysqli_fetch_array($raresult);
+                                                    ?>
+                                                    <h3 class="card-text"><?php echo $rarow[0]; ?></h3>
+                                                </div>
+                                            </div>
+                                       </td>
+                                       <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Cars grounded</h4>
+                                                    <?php 
+                                                        $gaquery = "select count(*) from cars where CAR_STATUS='Ground'";
+                                                        $garesult = mysqli_query($conn, $gaquery);
+                                                        $garow = mysqli_fetch_array($garesult);
+                                                    ?>
+                                                    <h3 class="card-text"><?php echo $garow[0]; ?></h3>
+                                                </div>
+                                            </div>
+                                       </td>
+                                       <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <center><h4 class="card-title">Total Income</h4>
+                                                    <?php 
+                                                        $aquery = "select SUM(TOTAL_AMOUNT) from payment";
+                                                        $aresult = mysqli_query($conn, $aquery);
+                                                        $arow = mysqli_fetch_array($aresult);
+                                                    ?>
+                                                    <h3 class="card-text">$<?php echo $arow[0]; ?></h3>
+                                                </div>
+                                            </div>
+                                       </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- <table style='width: 100%;'>
+                            <tr>
+                                <td>
+                                <div class="card" style="width: 25rem">
+                                    <img src="../images/car-1.jpg" class="card-img-top" alt="Mercedes Grand Sedan">
+                                    <div class="card-body text">
+                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                        <div class="d-flex mb-3">
+                                            <span class="cat">Chevrolet</span>
+                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                            <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td>
+                                <div class="card" style="width: 25rem">
+                                    <img src="../images/car-1.jpg" class="card-img-top" alt="Mercedes Grand Sedan">
+                                    <div class="card-body text">
+                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                        <div class="d-flex mb-3">
+                                            <span class="cat">Chevrolet</span>
+                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                            <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                </td>
+                                <td>
+                                <div class="card" style="width: 25rem">
+                                    <img src="../images/car-1.jpg" class="card-img-top" alt="Mercedes Grand Sedan">
+                                    <div class="card-body text">
+                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                        <div class="d-flex mb-3">
+                                            <span class="cat">Chevrolet</span>
+                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                            <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td>
+                                <div class="card" style="width: 25rem">
+                                    <img src="../images/car-1.jpg" class="card-img-top" alt="Mercedes Grand Sedan">
+                                    <div class="card-body text">
+                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                        <div class="d-flex mb-3">
+                                            <span class="cat">Chevrolet</span>
+                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                            <a href="#" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                </td>
+                            </tr>
+                        </table><hr> --><hr>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <center><h3 class='mt-4'>Top 10 cars available</h3></center>
+                                </div>
+                                <?php
+                                    $query = "select * from cars where CAR_STATUS='Available' order by CAR_AMOUNT desc limit 10";
+                                    $result = mysqli_query($conn, $query);
+
+                                    while($row = mysqli_fetch_array($result)){
+                                ?>
+                                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                                    <div class="card h-100">
+                                        <img src="../<?php echo $row[11]; ?>" class="card-img-top" alt="Mercedes Grand Sedan">
+                                        <div class="card-body text">
+                                            <h5 class="mb-0"><a href="#"><?php echo $row[1] . " " . $row[2];?></a></h2>
+                                            <span class="cat">Plate: <?php echo $row[4]; ?></span><br>
+                                            <div class="d-flex">
+                                                <span class="cat"><?php echo $row[3]; ?></span>
+                                                <p class="price ml-auto">$<?php echo $row[5]; ?> <span>/day</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright Start  -->
+     
+      <!-- Copyright End -->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script src="js/jquery-min.js"></script>
+        <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js'></script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js'></script>
+    <!-- <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/classie.js"></script>
+    <script src="../js/color-switcher.js"></script>
+    <script src="../js/jquery.mixitup.js"></script>
+    <script src="../js/nivo-lightbox.js"></script>
+    <script src="../js/owl.carousel.js"></script>    
+    <script src="../js/jquery.stellar.min.js"></script>    
+    <script src="../js/jquery.nav.js"></script>    
+    <script src="../js/scrolling-nav.js"></script>    
+    <script src="../js/jquery.easing.min.js"></script>     
+    <script src="../js/wow.js"></script> 
+    <script src="../js/jquery.vide.js"></script>
+    <script src="../js/jquery.counterup.min.js"></script>    
+    <script src="../js/jquery.magnific-popup.min.js"></script>    
+    <script src="../js/waypoints.min.js"></script>    
+    <script src="../js/form-validator.min.js"></script>
+    <script src="../js/contact-form-script.js"></script>   
+    <script src="../js/main.js"></script> -->
+    </body>
+</html>
