@@ -63,20 +63,20 @@ Libraries/tools
 -------------------------------------
 Getting Started
 -------------------------------------
-**Prerequisites**
+**Prerequisites** <br>
   - XAMPP
   - PHP 7+ (or compatible)
   - MySQL/MariaDB/phpMyAdmin
   - Composer (Optional, only if you want to reinstall PHPMailer via Composer)
 
-**Clone the Repository**
+**Clone the Repository** <br>
   - command: git clone https://github.com/ShivamManojPatel/Car-Rental-System.git && cd Car-Rental-System
 
   - Move the project into your web server root:
     - For XAMPP (Windows): C:\xampp\htdocs\Car-Rental-System
     - For XAMPP (MacOS): /Applications/XAMPP/xamppfiles/htdocs/
 
-**Database Setup**
+**Database Setup** <br>
   01. Start Apache and MySQL from XAMPP.
   02. Open phpMyAdmin at:
     - http://localhost/phpmyadmin
@@ -90,7 +90,7 @@ Getting Started
 
   This will create the necessary tables (Users, Cars, Booking, etc.)
 
-**Configure Database Connection**
+**Configure Database Connection** <br>
 Open datacon.php and update:
   $server = "localhost";
   $username = "root";
@@ -99,7 +99,7 @@ Open datacon.php and update:
 
 Save the file.
 
-**Configure Email (PHPMailer)**
+**Configure Email (PHPMailer)** <br>
 If you're using OTP or password reset features via email:
   - Open the relevant files (e.g., regotpverify.php, forgotpassword.php, or PHPMailer config files)
   - Configure:
@@ -111,7 +111,7 @@ If you're using OTP or password reset features via email:
 
 Make sure less-secure apps or app passwords are configured correctly with your email provider.
 
-**Run the Application**
+**Run the Application** <br>
 Open your browser and go to:
   - http://localhost/Car-Rental-System/index.php
 
@@ -121,7 +121,7 @@ From there, you can:
   - Log in and test booking flows
   - Log in as Admin (after creating admin credentials in the DB or via a seed)
 
-**Admin Credentials**
+**Admin Credentials** <br>
 Depending on how you set up the database:
   - Check the imported SQL file for any default admin user.
   - If there's no default admin:
