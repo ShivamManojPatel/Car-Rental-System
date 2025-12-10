@@ -57,8 +57,8 @@ Backend
 
 Libraries/tools
   - [PHPMailer](https://github.com/PHPMailer/PHPMailer) for sending emails (OTP/password reset/contact)
-  - Bootstrap template based on **Carbook** (colorlib template: https://colorlib.com/)
-  - Strip API (Payment gateway)
+  - Bootstrap template based on **Carbook** ([colorlib template](https://colorlib.com/))
+  - [Strip API](https://stripe.com/) (Payment gateway)
  
 -------------------------------------
 Getting Started
@@ -146,7 +146,7 @@ Possible Enhancement
 -------------------------------------
 Acknowledgement
 -------------------------------------
-- Frontend UI based on the Carbook Bootstrap template from Colorlib. (https://colorlib.com/)
+- Frontend UI based on the Carbook Bootstrap template from [Colorlib](https://colorlib.com/).
 - PHPMailer library for handling email features.
 - Bootstrap, jQuery, Font Awesome, and related vendors inside vendor/ folder.
 
