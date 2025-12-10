@@ -92,10 +92,10 @@ Getting Started
 
 **Configure Database Connection** <br>
 Open datacon.php and update:
-  $server = "localhost";
-  $username = "root";
-  $password = ""; // Set MySQL password if you have one
-  $ dbname = "car_rental"; // Use the same name you created in phpMyAdmin
+  $server = "localhost"; <br>
+  $username = "root"; <br>
+  $password = ""; // Set MySQL password if you have one <br>
+  $ dbname = "car_rental"; // Use the same name you created in phpMyAdmin <br>
 
 Save the file.
 
